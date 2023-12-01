@@ -3,3 +3,5 @@ cscope.out
 tags
 compile
 a.out
+*/scala/target
+*.class
