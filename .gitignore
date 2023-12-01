@@ -3,5 +3,5 @@ cscope.out
 tags
 compile
 a.out
-**/scala/target
+*/day*/scala/target
 *.class
