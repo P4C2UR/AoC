@@ -1,3 +1,5 @@
 .vimrc
 cscope.out
 tags
+compile
+a.out
