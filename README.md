@@ -8,6 +8,6 @@ Run everything apart from ASM with path to data file as first argument.<br>
 ASM reads this path from stdin.<br>
 ### 2023
 Made in C, Scala and JavaScript.<br>
-Running make will compile C to bin dir present in year dir<br>
+Running make will compile C to bin dir present in year dir. (Requires GNU make)<br>
 Run everything with path to data file as first argument.<br>
 To run scala go to scala dir and run sbt.<br>

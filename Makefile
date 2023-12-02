@@ -15,7 +15,6 @@ PROG23=$(addprefix $(BIN23)/, $(basename $(subst /,-, $(SOURCE23:2023/%=%))))
 $(VERBOSE).SILENT:
 
 all: $(PROG22) $(PROG23)
-	echo $(SOURCE23)
 2023: $(PROG23)
 2022: $(PROG22)
 
