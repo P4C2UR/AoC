@@ -7,26 +7,22 @@ DEBUG=-Og -ggdb3 -fsanitize=address -fsanitize=pointer-compare \
 -fno-stack-clash-protection
 CFLAGS=$(DEBUG) $(WARN) -march=native -std=gnu99
 
-SOURCE22=day3/day3.c day4/day4.c day5/day5.c day6/day6.c day6/day6-simd.c
-SOURCE23=day1/part1.c day1/part2.c day2/part1.c day2/part2.c
-
-PROG22=$(basename $(notdir $(SOURCE22)))
-PROG23=$(basename $(subst /,-, $(SOURCE23)))
-LIST23=$(addprefix $(BIN23)/, $(PROG23))
-LIST22=$(addprefix $(BIN22)/, $(PROG22))
-SLIST22=$(addprefix 2022/,$(SOURCE22))
-SLIST23=$(addprefix 2023/,$(SOURCE23))
+SOURCE22=$(wildcard 2022/day*/*.c)
+SOURCE23=$(wildcard 2023/day*/*.c)
+PROG22=$(addprefix $(BIN22)/, $(basename $(notdir $(SOURCE22))))
+PROG23=$(addprefix $(BIN23)/, $(basename $(subst /,-, $(SOURCE23:2023/%=%))))
 
 $(VERBOSE).SILENT:
 
-all: $(LIST22) $(LIST23)
-2023: $(LIST23)
-2022: $(LIST22)
+all: $(PROG22) $(PROG23)
+	echo $(SOURCE23)
+2023: $(PROG23)
+2022: $(PROG22)
 
 define goal
 $(1): $(2)
 	$(CC) $(2) $(CFLAGS) -o $(1)
 endef
 
-$(foreach count, $(shell seq -s ' ' 1 $(words $(LIST22))), $(eval $(call goal, $(word $(count), $(LIST22)), $(word $(count), $(SLIST22)))))
-$(foreach count, $(shell seq -s ' ' 1 $(words $(LIST23))), $(eval $(call goal, $(word $(count), $(LIST23)), $(word $(count), $(SLIST23)))))
+$(foreach count, $(shell seq -s ' ' 1 $(words $(PROG22))), $(eval $(call goal, $(word $(count), $(PROG22)), $(word $(count), $(SOURCE22)))))
+$(foreach count, $(shell seq -s ' ' 1 $(words $(PROG23))), $(eval $(call goal, $(word $(count), $(PROG23)), $(word $(count), $(SOURCE23)))))
