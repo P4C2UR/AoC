@@ -1,6 +1,6 @@
 #!/bin/bash
 r="$(awk '/[0-9]+/ {var += $0}
-         /^$/{print var; var = 0}' "data/day1" | sort -g)"
+         /^$/{print var; var = 0}' "$1" | sort -g)"
 echo "First half:"
 echo "$r" | tail -n 1 -
 echo "Second part:"

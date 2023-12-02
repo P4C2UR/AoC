@@ -12,7 +12,7 @@ j=0
 comb=""
 first=""
 second=""
-for i in $(cat "data/input.txt"); do
+for i in $(cat "$1"); do
   lines="$(echo "$i" | sed -E 's/(.)/\1\n/g')"
 
   n="$(((${#lines}+1)/4))"
