@@ -11,7 +11,6 @@ var rd = readline.createInterface({
 var acc = 0;
 rd.on('line',
   line => {
-    if(line.length==0) return;
     const chars = Array.from(line).filter(char=>char>='0'&&char<='9');
     acc += asDigit(chars[0])*10+asDigit(chars[chars.length-1])
   })

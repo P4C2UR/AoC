@@ -12,7 +12,7 @@ import scala.io.Source._
 
 object Part2 {
   def main(args: Array[String]): Unit = {
-    val lines = fromFile("../data").getLines.drop(1)
+    val lines = fromFile("../data").getLines
       .map(line=>line
       .replace("one",   "1")
       .replace("two",   "2")

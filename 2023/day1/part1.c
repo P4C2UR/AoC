@@ -14,10 +14,6 @@ int main() {
   f = fopen("2023/day1/data","r");
   length = getline(&line, &max_length, f);
   while(length>0) {
-    if(length==1) {
-      length = getline(&line, &max_length, f);
-      continue;
-    }
     for(int i=0;i<length;i++) {
       if(line[i]>='0'&&line[i]<='9') {
         acc+=(line[i]-'0')*10;
