@@ -4,4 +4,5 @@ tags
 compile
 a.out
 */day*/scala/target
+*/day*/scala/project/target
 *.class
