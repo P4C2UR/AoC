@@ -1,8 +1,8 @@
 .vimrc
 cscope.out
 tags
-compile
 a.out
 */day*/scala/target
 */day*/scala/project/target
 *.class
+*/bin
