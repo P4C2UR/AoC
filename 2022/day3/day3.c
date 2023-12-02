@@ -17,7 +17,7 @@ int ind(char c) {
 
 static inline int priority(char c) {return ind(c)+1;}
 static inline void getLine() {
-  fgets(l,buf,file);
+  if(fgets(l,buf,file)==0) return;
   ll=0;
   while(l[++ll]!='\n'){};
   l[ll]=0;
@@ -33,9 +33,6 @@ int main(int argc, char **argv) {
   else s="data/day3";
   file = fopen(s ,"r");
   l = (char*)malloc(sizeof(char)*buf);
-  l2;
-  int i = 0;
-  int li = 0;
   int j;
   v = 0;
   int found = false;

@@ -11,7 +11,7 @@
   region++
 
 
-char str[10] = "000000000\n"; 
+char str[10] = "000000000\n";
 
 char* itoa(int n) {
   uint i = 8;
@@ -23,6 +23,7 @@ char* itoa(int n) {
   return str + i;
 }
 int main(int argc, char* argv[]) {
+  (void)argc;
   register short f1,f2,s1,s2;
   register int sum=0;
   register int ssum=0;
@@ -31,7 +32,7 @@ int main(int argc, char* argv[]) {
     auto char* region;
     {
       auto struct stat sb;
-      fstat(fd,&sb);       
+      fstat(fd,&sb);
       region = mmap(NULL,
                     sb.st_size,
                     PROT_READ,
@@ -51,9 +52,11 @@ int main(int argc, char* argv[]) {
     }
     close(fd);
   }
+  char* t = itoa(sum);
   puts("First half:");
-  write(1,itoa(sum),10);
+  write(1,t,10-(t-str));
+  t = itoa(ssum);
   puts("Second half:");
-  write(1,itoa(ssum),10);
+  write(1,t,10-(t-str));
   return 0;
 }

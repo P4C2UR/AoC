@@ -34,6 +34,7 @@ char peek(stack *s) {return (*s).items[(*s).current];}
     }\
   } while(0)
 int main(int argc, char **argv) {
+  (void)argc;
   FILE *f = fopen(argv[1],"r");
   ui count;
   ui from;

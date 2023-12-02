@@ -7,11 +7,12 @@
 #include <sys/stat.h>
 #define true 1
 #define false 0
-#define change(t,c) (t^(1<<(c-'a'+6)))
+#define change(t,c) (t^((uint32_t)1<<(c-'a'+6)))
 
 int main(int argc, char **argv) {
-  uint32_t silver;
-  uint32_t gold;
+  (void)argc;
+  uint32_t silver = 0;
+  uint32_t gold = 0;
   uint fsilver = 0;
   uint i = 0;
   char *buf;

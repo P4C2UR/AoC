@@ -8,15 +8,13 @@
 #include <immintrin.h>
 #define true 1
 #define false 0
-#define change(t,c) (t^(1<<(c-'a'+5)))
+#define change(t,c) (t^((uint32_t)1<<(c-'a'+5)))
 
 int main(int argc, char **argv) {
-  uint32_t silver;
-  uint32_t gold;
+  (void)argc;
   uint32_t* temp = malloc(sizeof(uint32_t)*8);
   uint32_t* last = malloc(sizeof(uint32_t)*8);
   uint32_t result=0;
-  uint fsilver = 0;
   __m256i values;
   const __m256i mask = _mm256_setr_epi32(-'a',-'a',-'a',-'a',-'a',-'a',-'a',-'a');
   const __m256i one = _mm256_setr_epi32(1,1,1,1,1,1,1,1);
@@ -62,11 +60,13 @@ int main(int argc, char **argv) {
       last[j]=temp[j];
       if(__builtin_popcount(result)==4) {
         printf("%d\n",i-6+j);
-        close(fd);
-        return 0;
+        goto cleanup;
       }
     }
   }
+  cleanup:
+  free(temp);
+  free(last);
   close(fd);
   return 0;
 }
