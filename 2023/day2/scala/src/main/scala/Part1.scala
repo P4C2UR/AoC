@@ -2,9 +2,12 @@ package main.scala
 import scala.io.Source._
 
 object Part1 {
-  def check(game: List[(Int, Char)]): Boolean = {
   def main(args: Array[String]): Unit = {
-    val lines = fromFile("../data").getLines
+    if(args.length<1) {
+      println("Pass path to data file as argument")
+      return;
+    }
+    val lines = fromFile(args(0)).getLines
       .map(line=>line.split(": "))
       .map(labeled=>(labeled(0).split(" ")(1).toInt,labeled(1)))
       .map(numbered=>(numbered(0),
