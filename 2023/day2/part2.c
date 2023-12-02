@@ -15,9 +15,13 @@ int max_rgb[3] = {};
 int acc = 0;
 int first_digit = 0;
 
-int main() {
+int main(int argc, char** argv) {
+  if(argc<1) {
+    puts("Pass path to data file as argument");
+    return 1;
+  }
   line = malloc(sizeof(char)*LINE_SIZE);
-  f = fopen("2023/day2/data","r");
+  f = fopen(argv[1],"r");
   for(length = getline(&line,&max_length, f);
       length>0;
       length = getline(&line,&max_length, f)) {

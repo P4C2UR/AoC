@@ -4,9 +4,12 @@ const readline = require('readline');
 function asDigit(x) {
   return x.charCodeAt(0)-'0'.charCodeAt(0)
 }
-
+if(process.argv.length<3) {
+  console.log("Pass path to data file as argument");
+  return 1;
+}
 var rd = readline.createInterface({
-  input: fs.createReadStream('2023/day1/data'),
+  input: fs.createReadStream(process.argv[2]),
 });
 var acc = 0;
 rd.on('line',

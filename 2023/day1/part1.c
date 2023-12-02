@@ -9,9 +9,13 @@ FILE *f;
 int length;
 int acc = 0;
 
-int main() {
+int main(int argc, char** argv) {
+  if(argc<1) {
+    puts("Pass path to data file as argument");
+    return 1;
+  }
   line = malloc(sizeof(char)*LINE_SIZE);
-  f = fopen("2023/day1/data","r");
+  f = fopen(argv[1],"r");
   length = getline(&line, &max_length, f);
   while(length>0) {
     for(int i=0;i<length;i++) {

@@ -8,5 +8,5 @@ Run everything apart from ASM with path to data file as first argument.<br>
 ASM reads this path from stdin.<br>
 ### 2023
 Made in C, Scala and JavaScript.<br>
-Run C and JS from top level.<br>
+Run everything with path to data file as first argument.<br>
 To run scala go to scala dir and run sbt.<br>
