@@ -51,12 +51,21 @@ int main(int argc, char **argv) {
   };
   ui i = 0;
   char* s = "move %u from %u to %u\n";
-  if(NULL==fgets(buf,buf_size,f)) return 1;
+  if(NULL==fgets(buf,buf_size,f)) {
+    fclose(f);
+    return 1;
+  }
   while(fgets(buf,buf_size,f)[0]!='m') {}
-  if(sscanf(buf,s,&count,&from,&to)!=3) return 2;
+  if(sscanf(buf,s,&count,&from,&to)!=3) {
+    fclose(f);
+    return 2;
+  }
   while(!feof(f)) {
     move(stacks,count,from,to);
-    if(fscanf(f,s,&count,&from,&to)!=3) return 3;
+    if(fscanf(f,s,&count,&from,&to)!=3) {
+      fclose(f);
+      return 3;
+    }
   }
   move(stacks,count,from,to);
   for(;i<9;i++) printf("%c",peek(stacks+i));

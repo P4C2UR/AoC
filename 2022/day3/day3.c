@@ -23,8 +23,6 @@ static inline void getLine() {
   l[ll]=0;
   l2=ll/2;
 }
-static inline int next() {return (v+52)%208;}
-static inline void advance() {v=next();}
 
 int main(int argc, char **argv) {
   int *exists = (int*)calloc(208,sizeof(int));

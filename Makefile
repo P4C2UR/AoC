@@ -11,6 +11,7 @@ SOURCE22=$(wildcard 2022/day*/*.c)
 SOURCE23=$(wildcard 2023/day*/*.c)
 PROG22=$(addprefix $(BIN22)/, $(basename $(notdir $(SOURCE22))))
 PROG23=$(addprefix $(BIN23)/, $(basename $(subst /,-, $(SOURCE23:2023/%=%))))
+CPPCHECK=$(shell command -v cppcheck)
 
 $(VERBOSE).SILENT:
 
@@ -20,6 +21,9 @@ all: $(PROG22) $(PROG23)
 
 define goal
 $(1): $(2)
+	if [ -n $(CPPCHECK) ]; then\
+		cppcheck --enable=all --suppress=missingIncludeSystem -q $(2);\
+	fi
 	$(CC) $(2) $(CFLAGS) -o $(1)
 endef
 

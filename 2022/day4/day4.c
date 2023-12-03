@@ -24,7 +24,6 @@ char* itoa(int n) {
 }
 int main(int argc, char* argv[]) {
   (void)argc;
-  register short f1,f2,s1,s2;
   register int sum=0;
   register int ssum=0;
   {
@@ -40,6 +39,7 @@ int main(int argc, char* argv[]) {
                     fd,0);
     }
     while(*region != 0) {
+      register short f1,f2,s1,s2;
       populate(f1);
       populate(f2);
       populate(s1);
