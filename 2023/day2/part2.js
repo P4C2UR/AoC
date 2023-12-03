@@ -1,3 +1,4 @@
+#!/bin/env node
 const fs = require('fs');
 const readline = require('readline');
 
@@ -6,7 +7,7 @@ if(process.argv.length<3) {
   return 1;
 }
 var rd = readline.createInterface({
-  input: fs.createReadStream(argv[2]),
+  input: fs.createReadStream(process.argv[2]),
 });
 let acc = 0
 rd.on('line',
