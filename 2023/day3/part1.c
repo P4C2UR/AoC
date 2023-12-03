@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
 
 #define LINE_SIZE 200
 #define isDigit(c) (c>='0'&&c<='9')
