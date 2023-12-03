@@ -44,22 +44,22 @@ int main(int argc, char** argv) {
   f = fopen(argv[1], "r");
   for(length = getline(&lines[2],&max_length, f); length>0;) {
     for(int i=0;i<length-1;i++) {
-      if(!isDigit(lines[1][i]) && lines[1][i]!='.') {
-        if(i-1>=0) {
-          for(int j=0;j<3;j++) {
-            if(isDigit(lines[j][i-1]))
-              acc += parseNumber(lines[j], i-1);
-          }
+      if(isDigit(lines[1][i]) || lines[1][i]=='.')
+        continue;
+      if(i-1>=0) {
+        for(int j=0;j<3;j++) {
+          if(isDigit(lines[j][i-1]))
+            acc += parseNumber(lines[j], i-1);
         }
-        if(isDigit(lines[0][i]))
-          acc += parseNumber(lines[0],i);
-        if(isDigit(lines[2][i]))
-          acc += parseNumber(lines[2],i);
-        if(i+1<length-1) {
-          for(int j=0;j<3;j++) {
-            if(isDigit(lines[j][i+1]))
-              acc += parseNumber(lines[j], i+1);
-          }
+      }
+      if(isDigit(lines[0][i]))
+        acc += parseNumber(lines[0],i);
+      if(isDigit(lines[2][i]))
+        acc += parseNumber(lines[2],i);
+      if(i+1<length-1) {
+        for(int j=0;j<3;j++) {
+          if(isDigit(lines[j][i+1]))
+            acc += parseNumber(lines[j], i+1);
         }
       }
     }
