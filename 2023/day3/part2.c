@@ -34,7 +34,6 @@ int parseNumber(char *arr, int i) {
     arr[i]='.';
     i++;
   }
-  printf("%d\n", ret);
   return ret;
 }
 
