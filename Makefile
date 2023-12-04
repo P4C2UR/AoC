@@ -15,9 +15,14 @@ CPPCHECK=$(shell command -v cppcheck)
 
 $(VERBOSE).SILENT:
 
-all: $(PROG22) $(PROG23)
-2023: $(PROG23)
-2022: $(PROG22)
+all: | 2023 2022
+2023: | dir23 $(PROG23)
+2022: | dir22 $(PROG22)
+
+dir23:
+	mkdir -p $(BIN23)
+dir22:
+	mkdir -p $(BIN22)
 
 define goal
 $(1): $(2)
@@ -29,3 +34,4 @@ endef
 
 $(foreach count, $(shell seq -s ' ' 1 $(words $(PROG22))), $(eval $(call goal, $(word $(count), $(PROG22)), $(word $(count), $(SOURCE22)))))
 $(foreach count, $(shell seq -s ' ' 1 $(words $(PROG23))), $(eval $(call goal, $(word $(count), $(PROG23)), $(word $(count), $(SOURCE23)))))
+
