@@ -1,8 +1,7 @@
 package main.scala
 import scala.io.Source._
-import scala.math.pow
 
-object Part1 {
+object Part2 {
   def main(args: Array[String]): Unit = {
     if(args.length<1) {
       println("Pass path to data file as argument")
@@ -13,7 +12,10 @@ object Part1 {
       .map(_.replace('|', ' ').trim.split(" +").map(_.toInt))
       .map(_.groupBy(identity).collect {case (k,v) if v.length>1 => k})
       .map(_.toList.length-1)
-      .foldLeft(0)((acc,x)=>acc+pow(2, x).toInt)
+      .foldLeft((List.fill(10)(1),0))((acc,x)=> {
+        val l = acc(0).drop(1) :+ 1
+        (l.take(x+1).map(_+1*acc(0)(0)) ::: l.drop(x+1), acc(1)+acc(0)(0))
+      })(1)
     println(lines)
   }
 }
