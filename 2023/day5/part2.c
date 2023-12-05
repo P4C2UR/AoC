@@ -18,28 +18,6 @@ typedef struct list {
   struct node *tail;
 } list;
 
-void list_print(list *l) {
-  node *c = l->head;
-  while(c!=NULL) {
-    printf("(%lld %lld) ",c->start, c->length);
-    c=c->next;
-  }
-  puts("");
-  /*
-  printf("\nlength: %lld\n", l->length);
-  if(l->head==NULL) {
-    printf("head: NULL\n");
-  } else {
-    printf("head: (%lld %lld)\n", l->head->start, l->head->length);
-  }
-  if(l->tail==NULL) {
-    printf("tail: NULL\n");
-  } else {
-    printf("tail: (%lld %lld)\n", l->tail->start, l->tail->length);
-  }
-  */
-}
-
 void list_append(list* l, long long v, long long v2) {
   node *n =  malloc(sizeof(node));
   n->start = v;
@@ -168,9 +146,6 @@ int main(int argc, char** argv) {
     while(curr!=NULL) {
       seed_end = curr->start + curr->length;
       range_end = range[1]+range[2];
-      list_print(seeds);
-      list_print(newseeds);
-      printf("%lld %lld %lld\n", range[0], range[1], range[2]);
       if(range[1] > seed_end || //separate
          range_end < curr->start) {
         curr = curr->next;
@@ -222,8 +197,6 @@ int main(int argc, char** argv) {
       min = curr->start;
     curr = curr->next;
   }
-  list_print(seeds);
-  list_print(newseeds);
   list_clear(seeds);
   list_clear(newseeds);
   free(seeds);
