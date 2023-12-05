@@ -216,7 +216,7 @@ int main(int argc, char** argv) {
       curr = curr->next;
     }
   }
-  curr = seeds->head;
+  curr = newseeds->head;
   while(curr!=NULL) {
     if(min>curr->start)
       min = curr->start;
