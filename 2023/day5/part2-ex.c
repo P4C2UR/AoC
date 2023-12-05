@@ -129,6 +129,8 @@ list *newseeds;
 node *curr;
 long long range[3];
 long long min = LLONG_MAX;
+long long seed_end;
+long long range_end;
 
 void get_seeds(void) {
 long long arr[4];
@@ -161,17 +163,24 @@ int main(int argc, char** argv) {
     sscanf(line, "%lld %lld %lld", range+0, range+1, range+2);
     curr = seeds->head;
     while(curr!=NULL) {
+      seed_end = curr->start + curr->length;
+      range_end = range[1]+range[2];
       list_print(seeds);
       list_print(newseeds);
-      if(range[1] > curr->start+curr->length || //separate
-         range[1]+range[2] < curr->start) {
+      printf("%lld %lld %lld\n", range[0], range[1], range[2]);
+
+      if(range[1] > seed_end || //separate
+         range_end < curr->start) {
+
         puts("separate");
         curr = curr->next;
         continue;
+
       } else if(range[1] <= curr->start && //seed in range
-                range[1]+range[2] >= curr->start+curr->length) {
+                range_end >= seed_end) {
+
         puts("seed in range");
-        list_append(newseeds, range[0]-range[1]+curr->start, curr->length);
+        list_append(newseeds, range[0]+curr->start-range[1], curr->length);
         if(curr->next==NULL) {
           list_remove(seeds, curr);
           curr=NULL;
@@ -180,44 +189,54 @@ int main(int argc, char** argv) {
           list_remove(seeds, curr->prev);
         }
         continue;
+
       } else if(range[1] > curr->start && //range in seed not touching borders
-                range[1]+range[2] < curr->start+curr->length){
+                range_end < seed_end){
+
         puts("range in seed not touching borders");
         list_append(newseeds, range[0], range[2]);
         list_preppend(seeds, range[1]+range[2],
                     (curr->start+curr->length)-(range[1]+range[2]));
         curr->length = range[1]-curr->start;
+
       } else if(range[1] == curr->start && //range in seed touching left
                 range[1]+range[2] < curr->start+curr->length) {
+
         puts("range in seed touching left");
         list_append(newseeds, range[0], range[2]);
         curr->length -= range[2];
-        curr->start = range[1];
+        curr->start = range[1]+range[2];
+
       } else if(range[1] > curr->start && //range in seed touching right
                 range[1]+range[2] == curr->start+curr->length) {
+
         puts("range in seed touching right");
         list_append(newseeds, range[0], range[2]);
         curr->length -= range[2];
+
       } else if(range[1] < curr->start && //intersection seed to the right
-                range[1]+range[2] > curr->start &&
-                range[1]+range[2] < curr->start+curr->length) {
+                range_end > curr->start &&
+                range_end < seed_end) {
+
         puts("intersection seed to the right");
         list_append(newseeds, range[0]-range[1]+curr->start,
-                    curr->start+curr->length-(range[1]+range[2]));
-        curr->length = curr->length-(curr->start+curr->length-(range[1]+range[2]));
-        curr->start = range[1]+range[2];
+                    range_end-curr->start);
+        curr->length = curr->length-(range_end-curr->start);
+        curr->start = range_end;
+
       } else if(range[1] > curr->start && //intersection seed to the left
-                range[1] < curr->start+curr->length &&
-                range[1]+range[2] > curr->start+curr->length) {
+                range[1] < seed_end &&
+                range_end > seed_end) {
+
         puts("intersection seed to the left");
-        list_append(newseeds, range[0], curr->start+curr->length-range[1]);
-        curr->start = curr->length-(curr->start+curr->length-range[1]);
-        curr->length -= curr->start+curr->length-range[1];
+        list_append(newseeds, range[0], seed_end-range[1]);
+        curr->length -= seed_end-range[1];
+
       }
       curr = curr->next;
     }
   }
-  curr = newseeds->head;
+  curr = seeds->head;
   while(curr!=NULL) {
     if(min>curr->start)
       min = curr->start;
