@@ -5,7 +5,8 @@ DEBUG=-Og -ggdb3 -fsanitize=address -fsanitize=pointer-compare \
 -fsanitize=pointer-subtract -fsanitize=undefined \
 -fsanitize-address-use-after-scope -fstack-check \
 -fno-stack-clash-protection
-CFLAGS=$(DEBUG) $(WARN) -march=native -std=gnu99
+RELEASE=-O2 -s -pipe -flto=4
+CFLAGS=$(WARN) -march=native -std=gnu99
 
 SOURCE22=$(wildcard 2022/day*/*.c)
 SOURCE23=$(wildcard 2023/day*/*.c)
@@ -15,7 +16,13 @@ CPPCHECK=$(shell command -v cppcheck)
 
 $(VERBOSE).SILENT:
 
-all: | 2023 2022
+debug: CFLAGS += $(DEBUG)
+debug: | 2023 2022
+release: CFLAGS += $(RELEASE)
+release: | 2023 2022
+clean:
+	rm -f $(BIN23)/*
+	rm -f $(BIN22)/*
 2023: | dir23 $(PROG23)
 2022: | dir22 $(PROG22)
 
