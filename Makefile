@@ -6,6 +6,7 @@ DEBUG=-Og -ggdb3 -fsanitize=address -fsanitize=pointer-compare \
 -fsanitize-address-use-after-scope -fstack-check \
 -fno-stack-clash-protection
 CFLAGS=$(DEBUG) $(WARN) -march=native -std=gnu99
+LIBS="-lm"
 
 SOURCE22=$(wildcard 2022/day*/*.c)
 SOURCE23=$(wildcard 2023/day*/*.c)
@@ -29,7 +30,7 @@ $(1): $(2)
 	if [ -n $(CPPCHECK) ]; then\
 		cppcheck --enable=all --suppress=missingIncludeSystem -q $(2);\
 	fi
-	$(CC) $(2) $(CFLAGS) -o $(1)
+	$(CC) $(2) $(LIBS) $(CFLAGS) -o $(1)
 endef
 
 $(foreach count, $(shell seq -s ' ' 1 $(words $(PROG22))), $(eval $(call goal, $(word $(count), $(PROG22)), $(word $(count), $(SOURCE22)))))
