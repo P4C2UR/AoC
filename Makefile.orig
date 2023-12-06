@@ -5,10 +5,13 @@ DEBUG=-Og -ggdb3 -fsanitize=address -fsanitize=pointer-compare \
 -fsanitize=pointer-subtract -fsanitize=undefined \
 -fsanitize-address-use-after-scope -fstack-check \
 -fno-stack-clash-protection
+<<<<<<< HEAD
 CFLAGS=$(DEBUG) $(WARN) -march=native -std=gnu99
-LIBS=-lm
+LIBS="-lm"
+=======
 RELEASE=-O2 -s -pipe -flto=4
 CFLAGS=$(WARN) -march=native -std=gnu99
+>>>>>>> c0252f4fcdfcd264fa8358f398095a3ecc2d06a6
 
 SOURCE22=$(wildcard 2022/day*/*.c)
 SOURCE23=$(wildcard 2023/day*/*.c)
